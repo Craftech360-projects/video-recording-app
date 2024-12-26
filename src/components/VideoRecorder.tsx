@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Camera, Loader2 } from 'lucide-react';
 import { useVideoRecorder } from '../hooks/useVideoRecorder';
 import { uploadVideo } from '../services/videoApi';
@@ -16,17 +16,18 @@ export default function VideoRecorder() {
     startRecording,
     resetRecording
   } = useVideoRecorder();
-
+  const [uniqueCode, setUniqueCode] = useState('');
   const handleSubmit = async () => {
     if (!recordedVideo) return;
 
     setRecordingState('uploading');
-    
+
     try {
       const response = await fetch(recordedVideo);
       const blob = await response.blob();
       const videoUrl = await uploadVideo(blob);
       console.log('Video uploaded successfully:', videoUrl);
+      setUniqueCode(videoUrl);
       setRecordingState('success');
     } catch (error) {
       console.error('Error uploading video:', error);
@@ -73,7 +74,10 @@ export default function VideoRecorder() {
         )}
 
         {recordingState === 'success' && (
-          <SuccessMessage onReset={resetRecording} />
+          <SuccessMessage
+            onReset={resetRecording}
+            uniqueCode={uniqueCode} // Pass the unique code to SuccessMessage
+          />
         )}
       </div>
     </div>
