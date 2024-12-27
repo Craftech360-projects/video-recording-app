@@ -1,5 +1,5 @@
 export const awsConfig = {
-  region: import.meta.env.VITE_AWS_REGION || '', // Provide default values or validation if necessary
+  region: import.meta.env.VITE_AWS_REGION || '', // Ensure a fallback value
   credentials: {
     accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID || '',
     secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY || '',
