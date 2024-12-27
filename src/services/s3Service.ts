@@ -1,16 +1,23 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { AWS_CONFIG } from '../config/aws';
+import { awsConfig } from '../config/aws'; // Corrected import
 
+// Initialize the S3 client using awsConfig
 const s3Client = new S3Client({
-  region: AWS_CONFIG.region,
-  credentials: AWS_CONFIG.credentials
+  region: awsConfig.region,
+  credentials: awsConfig.credentials,
 });
 
+/**
+ * Uploads a file to an S3 bucket.
+ *
+ * @param file - The file to upload.
+ * @returns A Promise resolving to the public URL of the uploaded file.
+ */
 export async function uploadToS3(file: File): Promise<string> {
   const key = `videos/${Date.now()}-${file.name}`;
-  
+
   const command = new PutObjectCommand({
-    Bucket: AWS_CONFIG.bucketName,
+    Bucket: awsConfig.bucketName,
     Key: key,
     Body: file,
     ContentType: file.type,
@@ -18,7 +25,7 @@ export async function uploadToS3(file: File): Promise<string> {
 
   try {
     await s3Client.send(command);
-    return `https://${AWS_CONFIG.bucketName}.s3.${AWS_CONFIG.region}.amazonaws.com/${key}`;
+    return `https://${awsConfig.bucketName}.s3.${awsConfig.region}.amazonaws.com/${key}`;
   } catch (error) {
     console.error('S3 upload error:', error);
     throw new Error('Failed to upload to S3');
