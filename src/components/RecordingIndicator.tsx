@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function RecordingIndicator() {
   return (
     <div className="absolute top-4 right-4">

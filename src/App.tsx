@@ -7,8 +7,7 @@
 
 // export default App;
 // src/App.tsx
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import VideoStatusPage from './components/VideoStatusChecker';
 import VideoRecorder from './components/VideoRecorder';
 
@@ -26,7 +25,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<VideoRecorder />} />
-        <Route path="/form" element={<VideoStatusPage uniqueNumber={undefined} />} />
+        <Route path="/form" element={<VideoStatusPage/>} />
       </Routes>
     </BrowserRouter>
   );

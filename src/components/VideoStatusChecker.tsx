@@ -23,7 +23,7 @@ const VideoStatusChecker = () => {
                 isProcessed: false,
                 finalPath: null,
                 isLoading: false,
-                error: 'Unique Number is required.',
+                error: null,
                 message: ''
             });
             return;
@@ -65,7 +65,7 @@ const VideoStatusChecker = () => {
                 isProcessed: false,
                 finalPath: null,
                 isLoading: false,
-                error: error.message,
+                error: null,
                 message: '' // Clear any previous message
             });
         }
